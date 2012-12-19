@@ -937,7 +937,7 @@ function toInteger(n) {
 }
 
 function isPrimitive(input) {
-    return input === null || typeof input != "object";
+    return input === null || (typeof input !== "object" && typeof input !== "function");
 }
 
 function toPrimitive(input) {
