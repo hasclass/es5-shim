@@ -219,7 +219,7 @@ if ([].unshift(0) != 1) {
 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/isArray
 if (!Array.isArray) {
     Array.isArray = function isArray(obj) {
-        return _toString(obj) == "[object Array]";
+        return typeof obj === "object" && _toString(obj) == "[object Array]";
     };
 }
 
@@ -908,7 +908,7 @@ if (!String.prototype.trim || ws.trim()) {
     var trimBeginRegexp = new RegExp("^" + ws + ws + "*"),
         trimEndRegexp = new RegExp(ws + ws + "*$");
     String.prototype.trim = function trim() {
-        if (this === undefined || this === null) {
+        if (this == null) {
             throw new TypeError("can't convert "+this+" to object");
         }
         return String(this)
@@ -937,14 +937,7 @@ function toInteger(n) {
 }
 
 function isPrimitive(input) {
-    var type = typeof input;
-    return (
-        input === null ||
-        type === "undefined" ||
-        type === "boolean" ||
-        type === "number" ||
-        type === "string"
-    );
+    return input === null || typeof input != "object";
 }
 
 function toPrimitive(input) {
